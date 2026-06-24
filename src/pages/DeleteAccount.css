@@ -1,0 +1,164 @@
+.delete-account-page {
+  padding: 100px 0;
+  background-color: var(--bg-surface-alt);
+  min-height: calc(100vh - 80px); /* Adjust based on navbar height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+}
+
+.delete-header {
+  background-color: #fff0f0;
+  padding: 32px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.warning-icon {
+  background: #ffe0e0;
+  color: #dc2626;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.delete-header-text h2 {
+  color: #111827;
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  font-family: var(--font-heading);
+}
+
+.delete-header-text p {
+  color: #4b5563;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.delete-body {
+  padding: 32px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #f9fafb;
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: all 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #9ca3af;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.2);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #9ca3af;
+}
+
+.checkbox-group {
+  background-color: #fff7ed;
+  border: 1px solid #ffedd5;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  accent-color: #c2410c;
+  cursor: pointer;
+}
+
+.checkbox-group label {
+  color: #9a3412;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: white;
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-family: var(--font-heading);
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c;
+}
+
+.btn-danger:disabled {
+  background-color: #fca5a5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .delete-card {
+    border-radius: 16px;
+  }
+  
+  .delete-header {
+    padding: 24px;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .delete-body {
+    padding: 24px;
+  }
+}
