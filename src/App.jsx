@@ -6,38 +6,58 @@ import AutoLogout from './components/AutoLogout';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Lazy loaded pages to make website super fast
-const Home = lazy(() => import('./pages/Home'));
-const Terms = lazy(() => import('./pages/Terms'));
-const Privacy = lazy(() => import('./pages/Privacy'));
-const Refund = lazy(() => import('./pages/Refund'));
-const DeleteAccount = lazy(() => import('./pages/DeleteAccount'));
-const Contact = lazy(() => import('./pages/Contact'));
-const About = lazy(() => import('./pages/About'));
-const FAQ = lazy(() => import('./pages/FAQ'));
+// Handle chunk load errors when a new version is deployed
+const lazyWithRetry = (componentImport) =>
+  lazy(async () => {
+    const pageHasAlreadyBeenForceRefreshed = JSON.parse(
+      window.sessionStorage.getItem('page-has-been-force-refreshed') || 'false'
+    );
+    try {
+      const component = await componentImport();
+      window.sessionStorage.setItem('page-has-been-force-refreshed', 'false');
+      return component;
+    } catch (error) {
+      if (!pageHasAlreadyBeenForceRefreshed) {
+        window.sessionStorage.setItem('page-has-been-force-refreshed', 'true');
+        window.location.reload();
+        return { default: () => <div /> }; // Return empty component while reloading
+      }
+      throw error;
+    }
+  });
 
-const Login = lazy(() => import('./pages/Auth/Login'));
-const Register = lazy(() => import('./pages/Auth/Register'));
-const OtpVerification = lazy(() => import('./pages/Auth/OtpVerification'));
-const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard'));
-const Profile = lazy(() => import('./pages/Profile/Profile'));
-const ReferAndEarn = lazy(() => import('./pages/Profile/ReferAndEarn'));
-const WalletTopup = lazy(() => import('./pages/Wallet/WalletTopup'));
+const Home = lazyWithRetry(() => import('./pages/Home'));
+const Terms = lazyWithRetry(() => import('./pages/Terms'));
+const Privacy = lazyWithRetry(() => import('./pages/Privacy'));
+const Refund = lazyWithRetry(() => import('./pages/Refund'));
+const DeleteAccount = lazyWithRetry(() => import('./pages/DeleteAccount'));
+const Contact = lazyWithRetry(() => import('./pages/Contact'));
+const About = lazyWithRetry(() => import('./pages/About'));
+const FAQ = lazyWithRetry(() => import('./pages/FAQ'));
 
-const Recharge = lazy(() => import('./pages/Services/Recharge'));
-const DthRecharge = lazy(() => import('./pages/Services/DthRecharge'));
-const BillPayments = lazy(() => import('./pages/Services/BillPayments'));
-const ProviderSelection = lazy(() => import('./pages/Services/ProviderSelection'));
-const PlanSelection = lazy(() => import('./pages/Services/PlanSelection'));
-const Payment = lazy(() => import('./pages/Services/Payment'));
-const PaymentConfirmation = lazy(() => import('./pages/Services/PaymentConfirmation'));
-const PaymentSuccess = lazy(() => import('./pages/Services/PaymentSuccess'));
-const GooglePlay = lazy(() => import('./pages/Services/GooglePlay'));
+const Login = lazyWithRetry(() => import('./pages/Auth/Login'));
+const Register = lazyWithRetry(() => import('./pages/Auth/Register'));
+const OtpVerification = lazyWithRetry(() => import('./pages/Auth/OtpVerification'));
+const Dashboard = lazyWithRetry(() => import('./pages/Dashboard/Dashboard'));
+const Profile = lazyWithRetry(() => import('./pages/Profile/Profile'));
+const ReferAndEarn = lazyWithRetry(() => import('./pages/Profile/ReferAndEarn'));
+const WalletTopup = lazyWithRetry(() => import('./pages/Wallet/WalletTopup'));
 
-const Insurance = lazy(() => import('./pages/Services/Insurance'));
-const Accounting = lazy(() => import('./pages/Services/Accounting'));
-const HR = lazy(() => import('./pages/Services/HR'));
+const Recharge = lazyWithRetry(() => import('./pages/Services/Recharge'));
+const DthRecharge = lazyWithRetry(() => import('./pages/Services/DthRecharge'));
+const BillPayments = lazyWithRetry(() => import('./pages/Services/BillPayments'));
+const ProviderSelection = lazyWithRetry(() => import('./pages/Services/ProviderSelection'));
+const PlanSelection = lazyWithRetry(() => import('./pages/Services/PlanSelection'));
+const Payment = lazyWithRetry(() => import('./pages/Services/Payment'));
+const PaymentConfirmation = lazyWithRetry(() => import('./pages/Services/PaymentConfirmation'));
+const PaymentSuccess = lazyWithRetry(() => import('./pages/Services/PaymentSuccess'));
+const GooglePlay = lazyWithRetry(() => import('./pages/Services/GooglePlay'));
 
-const Reports = lazy(() => import('./pages/Reports/Reports'));
+const Insurance = lazyWithRetry(() => import('./pages/Services/Insurance'));
+const Accounting = lazyWithRetry(() => import('./pages/Services/Accounting'));
+const HR = lazyWithRetry(() => import('./pages/Services/HR'));
+
+const Reports = lazyWithRetry(() => import('./pages/Reports/Reports'));
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
