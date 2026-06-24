@@ -66,6 +66,7 @@
     display: none;
   }
   
+  .nav-actions > div,
   .nav-actions .btn {
     display: none;
   }
@@ -73,4 +74,48 @@
   .mobile-menu-btn {
     display: block;
   }
+}
+
+/* Mobile Menu Drawer */
+.mobile-menu-overlay {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.mobile-menu-overlay.open {
+  padding: 20px;
+  max-height: 100vh;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobile-nav-link {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-main);
+  text-decoration: none;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.mobile-nav-divider {
+  height: 1px;
+  background: #eee;
+  margin: 10px 0;
 }

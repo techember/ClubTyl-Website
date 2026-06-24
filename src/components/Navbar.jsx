@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Smartphone, Menu, User } from 'lucide-react';
+import { Smartphone, Menu, X, User } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/slices/userSlice';
 import logo from '../assets/logo.jpg';
@@ -10,6 +10,7 @@ const Navbar = () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -51,9 +52,44 @@ const Navbar = () => {
             <Smartphone size={20} />
             Download App
           </button>
-          <button className="mobile-menu-btn">
-            <Menu size={24} />
+          <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      <div className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-nav-links">
+          <Link to="/" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+          <a href="/#features" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
+          <a href="/#benefits" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Benefits</a>
+          <Link to="/contact" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+          
+          <div className="mobile-nav-divider"></div>
+          
+          {user ? (
+            <>
+              <Link to="/dashboard" className="mobile-nav-link" onClick={() => setIsMobileMenuOpen(false)}>
+                <User size={20} />
+                Dashboard
+              </Link>
+              <button 
+                onClick={() => {
+                  handleLogout();
+                  setIsMobileMenuOpen(false);
+                }} 
+                className="btn" 
+                style={{ width: '100%', padding: '12px', background: '#e74c3c', color: 'white', border: 'none', borderRadius: '8px', marginTop: '10px' }}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="btn" onClick={() => setIsMobileMenuOpen(false)} style={{ width: '100%', textAlign: 'center', padding: '12px', background: 'transparent', color: '#4A00E0', border: '1px solid #4A00E0', borderRadius: '8px', textDecoration: 'none', marginTop: '10px' }}>
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>
