@@ -6,7 +6,7 @@ import './PaymentSuccess.css';
 export default function PaymentSuccess() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { title, message, amount, orderId, transactionId } = location.state || {};
+  const { title, message, amount, orderId, transactionId, operatorRefId, isGooglePlay } = location.state || {};
 
   return (
     <div className="payment-success-wrapper">
@@ -35,6 +35,14 @@ export default function PaymentSuccess() {
             <div className="success-detail-row">
               <span className="detail-label">Transaction ID</span>
               <span className="detail-value">{transactionId}</span>
+            </div>
+          )}
+          {operatorRefId && (
+            <div className="success-detail-row">
+              <span className="detail-label">{isGooglePlay ? 'Redeem Code' : 'Operator Ref ID'}</span>
+              <span className="detail-value" style={{ fontWeight: 'bold', color: isGooglePlay ? '#00C300' : '#111' }}>
+                {operatorRefId}
+              </span>
             </div>
           )}
         </div>

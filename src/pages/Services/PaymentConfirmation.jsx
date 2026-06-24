@@ -8,7 +8,7 @@ import './PaymentConfirmation.css';
 export default function PaymentConfirmation() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { operatorDetail, rechargeData: initialRechargeData, isPrePaid, isDTH } = location.state || {};
+  const { operatorDetail, rechargeData: initialRechargeData, isPrePaid, isDTH, from } = location.state || {};
   const userState = useSelector(state => state.user.user);
   const userData = userState?.Data || userState?.user || userState;
   const userWallet = userData?.wallet?.balance || 0;
@@ -116,7 +116,15 @@ export default function PaymentConfirmation() {
 
       // Execute specific API
       let res;
-      if (isDTH) {
+      if (from === 'googleplay') {
+        res = await postData('api/cyrus/bbps/google-play?type=wallet', {
+          amount: rechargeData?.amount,
+          mobileNumber: rechargeData?.number,
+          number: rechargeData?.number,
+          ServiceId: operatorDetail?.ServiceId,
+          mpin: mpin,
+        });
+      } else if (isDTH) {
         res = await getData(
           `api/cyrus/dth_request?number=${rechargeData?.customerID || operatorDetail?.Mobile}&operator=${operatorDetail.DthOpCode}&amount=${rechargeData.amount || rechargeData.rs}&mPin=${mpin}&operatorName=${operatorDetail.DthName}&type=wallet`
         );
@@ -145,7 +153,9 @@ export default function PaymentConfirmation() {
             title: 'Payment Successful!',
             message: res?.Message || 'Your request has been processed successfully.',
             amount: rechargeData.amount || rechargeData.rs,
-            transactionId: res?.Data?.transactionId || res?.Data?.order_id
+            transactionId: res?.Data?.transactionId || res?.Data?.order_id,
+            operatorRefId: res?.Data?.operator_ref_id,
+            isGooglePlay: from === 'googleplay'
           }
         });
       } else {
@@ -206,7 +216,7 @@ export default function PaymentConfirmation() {
               </div>
               
               <p className="service-desc">
-                {isPrePaid ? 'Mobile Prepaid Recharge' : `Bill Payment for ${operatorDetail?.displayname || 'Service'}`}
+                {from === 'googleplay' ? 'Google Play Recharge' : isDTH ? 'DTH Recharge' : isPrePaid ? 'Mobile Recharge' : `Bill Payment for ${operatorDetail?.displayname || 'Service'}`}
               </p>
 
               <div className="details-box">

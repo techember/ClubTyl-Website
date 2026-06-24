@@ -59,30 +59,34 @@ export default function Dashboard() {
   const loadData = async () => {
     setLoading(true);
     try {
-      // Fetch User Profile
-      const userRes = await getData('/api/user/profile');
+      const [
+        userRes,
+        bannerRes,
+        bottomRes,
+        svcRes,
+        affRes,
+        newsRes
+      ] = await Promise.all([
+        getData('/api/user/profile').catch(e => { console.error(e); return null; }),
+        getData('api/home-banner/list').catch(e => { console.error(e); return null; }),
+        getData('api/bottom-banner/list').catch(e => { console.error(e); return null; }),
+        getData('api/service/list?status=true').catch(e => { console.error(e); return null; }),
+        getData('api/affiliate/list').catch(e => { console.error(e); return null; }),
+        getData('api/news/active').catch(e => { console.error(e); return null; })
+      ]);
+
+      // Set User Profile
       if (userRes?.Status) {
         setUserData(userRes.Data);
         dispatch(setUser({ ...userState, user: userRes.Data }));
       }
 
-      // Fetch Banners
-      const bannerRes = await getData('api/home-banner/list');
+      // Set Banners
       if (bannerRes?.Data) setBanners(bannerRes.Data);
+      if (bottomRes?.Data) setBottomBanners(bottomRes.Data);
 
-      // Fetch Bottom Banners
-      try {
-        const bottomRes = await getData('api/bottom-banner/list');
-        if (bottomRes?.Data) setBottomBanners(bottomRes.Data);
-      } catch (e) {
-        console.error('Bottom banner fetch error:', e);
-      }
-
-      // Fetch Services
-      const svcRes = await getData('api/service/list?status=true');
-      const affRes = await getData('api/affiliate/list');
+      // Set Services
       const combined = [...(svcRes?.Data || []), ...(affRes?.Data || [])];
-      
       const grouped = combined.reduce((acc, item) => {
         const sectionName = item.section && item.section.trim() !== '' && item.section !== 'undefined' && item.section !== 'null' ? item.section : 'more';
         if (!acc[sectionName]) acc[sectionName] = [];
@@ -91,14 +95,13 @@ export default function Dashboard() {
       }, {});
       setServices(grouped);
 
-      // Fetch News
-      const newsRes = await getData('api/news/active');
+      // Set News
       if (newsRes?.Data) {
         setNews(newsRes.Data.map(n => n.text));
       }
 
     } catch (e) {
-      console.error(e);
+      console.error('Error loading dashboard data:', e);
     } finally {
       setLoading(false);
     }
@@ -193,6 +196,8 @@ export default function Dashboard() {
                       navigate('/recharge', { state: { ServiceId: item._id, name: item.name } });
                     } else if (lowerName.includes('dth')) {
                       navigate('/dth-recharge', { state: { ServiceId: item._id, name: item.name } });
+                    } else if (lowerName.includes('google play')) {
+                      navigate('/google-play', { state: { ServiceId: item._id, name: item.name } });
                     } else if (section === 'account') {
                       navigate('/profile');
                     } else {
