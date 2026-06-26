@@ -40,7 +40,7 @@ const Footer = () => {
               <li><Link to="/terms">Terms & Conditions</Link></li>
               <li><Link to="/privacy">Privacy Policy</Link></li>
               <li><Link to="/refund">Refund Policy</Link></li>
-              <li><Link to="/DeleteAccount">Delete URL</Link></li>
+              <li><Link to="/DeleteAccount">Delete Account</Link></li>
             </ul>
           </div>
 
@@ -49,7 +49,7 @@ const Footer = () => {
             <ul className="contact-info">
               <li>
                 <Phone size={18} />
-                <span>+91 9039825246<br/>+91 7489252106 (WhatsApp)</span>
+                <span>+91 7489252106 (WhatsApp)</span>
               </li>
               <li>
                 <Mail size={18} />
