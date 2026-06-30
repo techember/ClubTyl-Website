@@ -21,7 +21,7 @@ const Privacy = () => {
           <p>We use the collected information to:</p>
           <ul>
             <li>Process your transactions securely.</li>
-            <li>Calculate your retailer shares and commissions.</li>
+            <li>Calculate your commissions.</li>
             <li>Improve our app and website functionality.</li>
             <li>Communicate with you regarding updates, offers, and support.</li>
           </ul>

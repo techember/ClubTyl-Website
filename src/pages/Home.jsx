@@ -1,11 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Smartphone, Zap, Shield, Briefcase, Gift, DollarSign, Users, ArrowRight } from 'lucide-react';
 import logo from '../assets/logo.jpg';
 import './Home.css';
 
 const Home = () => {
+  const [showIosModal, setShowIosModal] = useState(false);
+
   return (
     <div className="page-wrapper">
+      {/* iOS Modal */}
+      {showIosModal && (
+        <div className="ios-modal-overlay" onClick={() => setShowIosModal(false)}>
+          <div className="ios-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="ios-modal-icon">
+              <Smartphone size={32} />
+            </div>
+            <h3 className="ios-modal-title">Coming Soon!</h3>
+            <p className="ios-modal-text">Our iOS app is currently in development. Stay tuned for an amazing experience on your Apple devices!</p>
+            <button className="btn btn-primary" style={{ width: '100%' }} onClick={() => setShowIosModal(false)}>
+              Got it
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="hero">
         <div className="container hero-container">
@@ -15,14 +33,14 @@ const Home = () => {
               The Ultimate <span className="text-gradient">Fintech App</span> for All Your Needs
             </h1>
             <p className="hero-subtitle">
-              Recharges, Bill Payments, Insurance, HR, and Accounting Services in one powerful platform. Earn shares and commissions on every transaction.
+              Recharges, Bill Payments, Insurance, HR, and Accounting Services in one powerful platform. Earn high commissions on every transaction.
             </p>
             <div className="hero-actions">
               <button className="btn btn-primary">
                 <Smartphone size={20} />
                 Download for Android
               </button>
-              <button className="btn btn-secondary">
+              <button className="btn btn-secondary" onClick={() => setShowIosModal(true)}>
                 <Smartphone size={20} />
                 Download for iOS
               </button>
@@ -86,13 +104,13 @@ const Home = () => {
         <div className="container benefits-container">
           <div className="benefits-image animate-fade-up">
             <div className="glass-card reward-card">
-              <Gift size={48} color="var(--accent-color)" />
-              <h3>Earn Company Shares</h3>
-              <p>Retailers earn shares on every recharge made through the platform.</p>
+              <DollarSign size={48} color="var(--accent-color)" />
+              <h3>Earn Extra Income</h3>
+              <p>Retailers earn high commissions on every recharge and bill payment made through the platform.</p>
               <div className="share-bar">
                 <div className="share-progress"></div>
               </div>
-              <p className="share-text">245 Shares Earned This Month!</p>
+              <p className="share-text">Maximize your earnings every month!</p>
             </div>
           </div>
           
@@ -102,8 +120,8 @@ const Home = () => {
               <li>
                 <div className="benefit-icon"><Gift size={24} /></div>
                 <div className="benefit-text">
-                  <h4>Retailer Shares</h4>
-                  <p>Unlike other platforms, our retailers get company shares for doing recharges. Grow with us!</p>
+                  <h4>Exclusive Rewards</h4>
+                  <p>Get exciting rewards and bonuses for being an active retailer on our platform. Grow with us!</p>
                 </div>
               </li>
               <li>

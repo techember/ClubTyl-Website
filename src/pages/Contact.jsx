@@ -10,7 +10,7 @@ const Contact = () => {
           <h1>Get in Touch</h1>
           <p>We'd love to hear from you. Reach out to us for any queries or support.</p>
         </div>
-        
+
         <div className="contact-container">
           <div className="contact-info-cards animate-fade-up delay-100">
             <div className="contact-card glass-card">
@@ -18,10 +18,10 @@ const Contact = () => {
                 <Phone size={24} />
               </div>
               <h3>Call Us</h3>
-              <p>+91 9039825246</p>
+
               <p>+91 7489252106 (WhatsApp)</p>
             </div>
-            
+
             <div className="contact-card glass-card delay-200">
               <div className="contact-icon">
                 <Mail size={24} />
@@ -29,7 +29,7 @@ const Contact = () => {
               <h3>Email Us</h3>
               <p>clubtyl2022@gmail.com</p>
             </div>
-            
+
             <div className="contact-card glass-card delay-300">
               <div className="contact-icon">
                 <MapPin size={24} />
@@ -46,17 +46,17 @@ const Contact = () => {
                 <label htmlFor="name">Full Name</label>
                 <input type="text" id="name" placeholder="John Doe" />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="email">Email Address</label>
                 <input type="email" id="email" placeholder="john@example.com" />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="message">Your Message</label>
                 <textarea id="message" rows="5" placeholder="How can we help you?"></textarea>
               </div>
-              
+
               <button type="submit" className="btn btn-primary w-100 mt-4">
                 <Send size={18} />
                 Send Message

@@ -183,7 +183,7 @@ export default function Reports() {
                       <>
                         <th>Reward Type</th>
                         <th>Rule Applied</th>
-                        <th>Eligible Shares</th>
+                        <th>Eligible Rewards</th>
                         <th>Status</th>
                       </>
                     )
@@ -214,7 +214,7 @@ export default function Reports() {
                       return (
                         <tr key={idx}>
                           <td>{item.shareName}</td>
-                          <td className="fw-bold">{item.totalQuantity} Shares</td>
+                          <td className="fw-bold">{item.totalQuantity} Rewards</td>
                           <td><span className="status-badge status-success">OWNED</span></td>
                         </tr>
                       );
@@ -222,8 +222,7 @@ export default function Reports() {
                       return (
                         <tr key={idx}>
                           <td>{item.transactionType} Reward</td>
-                          <td>Rule: {item.ruleId?.thresholdAmount} = {item.ruleId?.shareQuantity} Share(s)</td>
-                          <td className="fw-bold" style={{color: '#FF9800'}}>{item.eligibleShares} Shares</td>
+                          <td className="fw-bold" style={{color: '#FF9800'}}>{item.eligibleShares} Rewards</td>
                           <td><span className="status-badge status-pending">PENDING</span></td>
                         </tr>
                       );
